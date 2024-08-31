@@ -1,17 +1,17 @@
-import Header from "./ui/components/header";
-import SignUp from "@/app/ui/pages/sign-up";
-import SignIn from "@/app/ui/pages/sign-in";
-import Footer from "./ui/components/footer";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
+import CourseList from "@/app/components/courseList";
+import SignIn from "@/app/pages/sign-in";
 
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex min-h-screen flex-col items-center justify-between p-24 m-auto">
-        <SignIn />
+      <main className="min-h-screen">
+        <SignIn/>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 }
