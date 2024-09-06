@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-from .user import UserList
+from .user import UserCreate
 from .user import UserDetail
+from .user import UserLogin
 from .course import CourseList
 from .course import CourseDetail
 from .module import ModuleList

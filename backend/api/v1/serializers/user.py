@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ User Serializer Module for EduAccess project """
+from django.contrib.auth import authenticate
 from rest_framework import serializers
 from ..serializers import BaseSerializer
 
@@ -14,10 +15,11 @@ class UserSerializer(BaseSerializer):
     class Meta:
         model = User
         fields = ['id', 'name', 'email', 'role', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
-        user = User(**validated_data)
+        user = super().create(validated_data)
         if password:
             user.set_password(password)
         user.save()
@@ -32,3 +34,18 @@ class UserSerializer(BaseSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length=100)
+    password = serializers.CharField()
+
+    def validate(self, data):
+        email = data.get('email')
+        password = data.get('password')
+
+        user = authenticate(email=email, password=password)
+
+        if not user:
+            raise serializers.ValidationError('Invalid credentials')
+        return {'user': user}

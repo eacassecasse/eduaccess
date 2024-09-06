@@ -2,6 +2,7 @@
 
 from .base_model import BaseSerializer
 from .user import UserSerializer
+from .user import UserLoginSerializer
 from .course import CourseSerializer
 from .module import ModuleSerializer
 from .lesson import LessonSerializer
