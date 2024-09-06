@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Header />
       <main className="min-h-screen">
-        <SignIn/>
+        <CourseList/>
       </main>
       <Footer />
     </>

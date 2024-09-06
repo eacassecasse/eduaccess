@@ -37,66 +37,72 @@ export interface Artwork {
     image: string
     description: string
 }
-
 export const courses: Artwork[] = [
     {
-        name: "Ornella Binni",
-        image: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
-        description: ""
+        name: "Introduction to Python",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80",
+        description: "Learn the basics of Python programming, one of the most popular and versatile languages."
     },
     {
-        name: "Tom Byrom",
-        image: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
-        description: ""
+        name: "Web Development",
+        image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=300&q=80",
+        description: "A comprehensive course on building modern web applications using JavaScript."
     },
     {
-        name: "Vladimir Malyavko",
-        image: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
-        description: ""
+        name: "Data Science",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80",
+        description: "Dive into data analysis, visualization, and machine learning techniques."
     },
     {
-        name: "Ornella Binni",
-        image: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
-        description: ""
+        name: "UI/UX Design Fundamentals",
+        image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=300&q=80",
+        description: "Master the principles of user interface and user experience design."
     },
     {
-        name: "Tom Byrom",
-        image: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
-        description: ""
+        name: "Digital Marketing Strategies",
+        image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=300&q=80",
+        description: "Learn how to create effective digital marketing campaigns for online platforms."
     },
     {
-        name: "Vladimir Malyavko",
-        image: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
-        description: ""
+        name: "Mobile App Development",
+        image: "https://images.unsplash.com/photo-1556761175-129418cb2dfe?auto=format&fit=crop&w=300&q=80",
+        description: "Build cross-platform mobile apps using Google's Flutter framework."
     },
-]
+    {
+        name: "Cloud Computing with AWS",
+        image: "https://images.unsplash.com/photo-1556761175-129418cb2dfe?auto=format&fit=crop&w=300&q=80",
+        description: "Get started with cloud computing services and architecture using Amazon Web Services."
+    },
+    {
+        name: "Cybersecurity Essentials",
+        image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=300&q=80",
+        description: "Understand the basics of cybersecurity and how to protect digital infrastructures."
+    },
+    {
+        name: "Project Management",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80",
+        description: "Learn project management methodologies and tools specific to the tech industry."
+    },
+    {
+        name: "Artificial Intelligence",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80",
+        description: "A beginner-friendly course on AI concepts, algorithms, and applications."
+    }
+];
+
 
 export function CourseList() {
     return (
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-            <div className="flex w-max space-x-4 p-4">
-                {courses.map((course) => (
-                    <figure key={course.name} className="shrink-0">
-                        <div className="overflow-hidden rounded-md">
-                            <Image
-                                src={course.image}
-                                alt={`Course by ${course.name}`}
-                                className="aspect-[3/4] h-fit w-fit object-cover"
-                                width={300}
-                                height={400}
-                            />
-                        </div>
-                        <figcaption className="pt-2 text-xs text-muted-foreground">
-                            Course by{" "}
-                            <span className="font-semibold text-foreground">
-                                {course.name}
-                            </span>
-                        </figcaption>
-                    </figure>
-                ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        <div className="flex flex-col p-4">
+            <h2 className="text-4xl text-bold mb-8">Course List</h2>
+            <ScrollArea className="w-full whitespace-nowrap">
+                <div className="grid grid-cols-4 gap-5">
+                    {courses.map((course) => (
+                        <Course course={course} key={course.name} />
+                    ))}
+                </div>
+            </ScrollArea>
+        </div>
     )
 }
 
