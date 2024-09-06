@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 
@@ -6,9 +7,9 @@ function Footer() {
         <footer className="flex items-center justify-between px-6 py-4 bg-slate-100">
             <div className="copyright">&copy; 2024 EduAccess</div>
             <ul className="flex flex-row flex-nowrap gap-2 list-none">
-                <li className="border"><a href="#">Privacy Policy</a></li>
-                <li className="border"><a href="#">Terms of Service</a></li>
-                <li className="border"><a href="#">Contact Us</a></li>
+                <li><Link href="#">Privacy Policy</Link></li>
+                <li><Link href="#">Terms of Service</Link></li>
+                <li><Link href="#">Contact Us</Link></li>
             </ul>
         </footer>
     );
