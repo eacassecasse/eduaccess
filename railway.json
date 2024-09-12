@@ -1,10 +1,14 @@
 {
   "build": {
     "backend": {
-      "builder": "heroku/python"
+      "builder": "nixpacks",
+      "start": "python backend/manage.py runserver 0.0.0.0:$PORT",
+      "language": "python"
     },
     "frontend": {
-      "builder": "heroku/nodejs"
+      "builder": "nixpacks",
+      "start": "npm run --prefix frontend start",
+      "language": "node"
     }
   },
   "deploy": {
