@@ -17,9 +17,12 @@ class IsEducator(BasePermission):
 class CourseList(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['title', 'educator']
-    search_fields = ['title', 'description']
+    permission_classes = [IsAuthenticated]
+    # filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    # ordering = ['created_at']
+    # ordering_fields = ['title']
+    # filterset_fields = ['title', 'educator']
+    # search_fields = ['title', 'description']
 
     def get_permissions(self):
         if self.request.method == 'POST':

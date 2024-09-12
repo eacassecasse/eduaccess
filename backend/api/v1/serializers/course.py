@@ -13,7 +13,7 @@ class CourseSerializer(BaseSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'title', 'description', 'educator', 'students']
+        fields = ['id', 'title', 'prev_img', 'description', 'educator', 'students']
 
     def to_representation(self, instance):
         from .module import ModuleSerializer

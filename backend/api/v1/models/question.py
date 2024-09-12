@@ -14,3 +14,4 @@ class Question(BaseModel):
 
     class Meta:
         db_table = 'questions'
+        ordering = ['created_at']

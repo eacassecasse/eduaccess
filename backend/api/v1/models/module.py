@@ -13,3 +13,4 @@ class Module(BaseModel):
 
     class Meta:
         db_table = 'modules'
+        ordering = ['created_at']

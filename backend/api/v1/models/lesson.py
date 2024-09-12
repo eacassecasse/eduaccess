@@ -13,3 +13,4 @@ class Lesson(BaseModel):
 
     class Meta:
         db_table = 'lessons'
+        ordering = ['created_at']

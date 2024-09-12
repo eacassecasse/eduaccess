@@ -12,3 +12,4 @@ class Quiz(BaseModel):
 
     class Meta:
         db_table = 'quizzes'
+        ordering = ['created_at']
