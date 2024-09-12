@@ -1,0 +1,17 @@
+{
+  "build": {
+    "backend": {
+      "builder": "heroku/python"
+    },
+    "frontend": {
+      "builder": "heroku/nodejs"
+    }
+  },
+  "deploy": {
+    "production": {
+      "backend": "python backend/manage.py runserver 0.0.0.0:$PORT",
+      "frontend": "npm run --prefix frontend start"
+    }
+  }
+}
+
