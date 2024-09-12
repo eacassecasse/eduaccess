@@ -14,3 +14,4 @@ class Resource(BaseModel):
 
     class Meta:
         db_table = 'resources'
+        ordering = ['created_at']

@@ -39,6 +39,8 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=255)
     role = models.CharField(choices=ROLES, default='guest', max_length=50)
 
+    profile_image = models.URLField(default="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 

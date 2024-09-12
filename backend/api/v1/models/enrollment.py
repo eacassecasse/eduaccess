@@ -15,3 +15,4 @@ class Enrollment(BaseModel):
 
     class Meta:
         db_table = 'enrollments'
+        ordering = ['created_at']

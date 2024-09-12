@@ -15,3 +15,4 @@ class Score(BaseModel):
 
     class Meta:
         db_table = 'scores'
+        ordering = ['created_at']

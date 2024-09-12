@@ -14,3 +14,4 @@ class Option(BaseModel):
 
     class Meta:
         db_table = 'options'
+        ordering = ['created_at']
