@@ -1,0 +1,21 @@
+{
+  "build": {
+    "backend": {
+      "builder": "nixpacks",
+      "start": "python backend/manage.py runserver 0.0.0.0:$PORT",
+      "language": "python"
+    },
+    "frontend": {
+      "builder": "nixpacks",
+      "start": "npm run --prefix frontend start",
+      "language": "node"
+    }
+  },
+  "deploy": {
+    "production": {
+      "backend": "python backend/manage.py runserver 0.0.0.0:$PORT",
+      "frontend": "npm run --prefix frontend start"
+    }
+  }
+}
+
