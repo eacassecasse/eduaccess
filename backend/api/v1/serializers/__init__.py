@@ -3,6 +3,7 @@
 from .base_model import BaseSerializer
 from .user import UserSerializer
 from .user import UserLoginSerializer
+from .user import CustomTokenObtainPairSerializer
 from .course import CourseSerializer
 from .module import ModuleSerializer
 from .lesson import LessonSerializer
@@ -12,3 +13,4 @@ from .option import OptionSerializer
 from .enrollment import EnrollmentSerializer
 from .resource import ResourceSerializer
 from .score import ScoreSerializer
+from .answer import AnswerSerializer

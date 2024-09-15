@@ -11,18 +11,17 @@ from ..serializers import CourseSerializer
 
 class IsEducator(BasePermission):
     def has_permission(self, request, view):
-        return request.user.role == 'educator'
+        return request.auth['role'] == 'educator'
 
 
 class CourseList(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated]
-    # filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    # ordering = ['created_at']
-    # ordering_fields = ['title']
-    # filterset_fields = ['title', 'educator']
-    # search_fields = ['title', 'description']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    ordering = ['created_at']
+    ordering_fields = ['title']
+    filterset_fields = ['title', 'educator']
+    search_fields = ['title', 'description']
 
     def get_permissions(self):
         if self.request.method == 'POST':

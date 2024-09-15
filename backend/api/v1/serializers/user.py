@@ -2,6 +2,9 @@
 """ User Serializer Module for EduAccess project """
 from django.contrib.auth import authenticate
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, AuthUser
+from rest_framework_simplejwt.tokens import Token
+
 from ..serializers import BaseSerializer
 
 from ..models import BaseModel
@@ -49,3 +52,11 @@ class UserLoginSerializer(serializers.Serializer):
         if not user:
             raise serializers.ValidationError('Invalid credentials')
         return {'user': user}
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user: User) -> Token:
+        token = super().get_token(user)
+        token['role'] = user.role
+        return token
