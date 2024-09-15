@@ -15,4 +15,5 @@ class Score(BaseModel):
 
     class Meta:
         db_table = 'scores'
+        unique_together = ('student', 'quiz')
         ordering = ['created_at']

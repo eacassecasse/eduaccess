@@ -13,11 +13,11 @@ class ModuleList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        course_id = self.kwargs.get('course_id')
-        return Module.objects.filter(course_id=course_id)
+        course_id = self.kwargs.get('id')
+        return Module.objects.filter(course_id=course_id).prefetch_related('course')
 
     def perform_create(self, serializer):
-        course = Course.objects.get(pk=self.kwargs.get('course_id'))
+        course = Course.objects.get(pk=self.kwargs.get('id'))
         serializer.save(course=course)
 
 

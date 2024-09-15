@@ -13,4 +13,5 @@ class Module(BaseModel):
 
     class Meta:
         db_table = 'modules'
+        unique_together = ('id', 'course')
         ordering = ['created_at']

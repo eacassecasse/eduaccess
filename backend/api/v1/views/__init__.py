@@ -3,6 +3,7 @@
 from .user import UserCreate
 from .user import UserDetail
 from .user import UserLogin
+from .user import CustomTokenObtainPairView
 from .course import CourseList
 from .course import CourseDetail
 from .module import ModuleList

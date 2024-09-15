@@ -15,4 +15,5 @@ class Enrollment(BaseModel):
 
     class Meta:
         db_table = 'enrollments'
+        unique_together = ('student', 'course')
         ordering = ['created_at']

@@ -14,4 +14,5 @@ class Question(BaseModel):
 
     class Meta:
         db_table = 'questions'
+        unique_together = ('id', 'quiz')
         ordering = ['created_at']

@@ -14,8 +14,3 @@ class CourseSerializer(BaseSerializer):
     class Meta:
         model = Course
         fields = ['id', 'title', 'prev_img', 'description', 'educator', 'students']
-
-    def to_representation(self, instance):
-        from .module import ModuleSerializer
-        self.fields['modules'] = ModuleSerializer(many=True, read_only=True)
-        return super().to_representation(instance)

@@ -9,4 +9,4 @@ from ..models import Enrollment
 class EnrollmentSerializer(BaseSerializer):
     class Meta:
         model = Enrollment
-        fields = ['id', 'user', 'enrolled_at', 'course']
+        fields = ['id', 'student', 'enrolled_at', 'course']

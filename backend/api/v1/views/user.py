@@ -5,10 +5,11 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from ..models import BaseModel
 from ..models import User
-from ..serializers import UserSerializer, UserLoginSerializer
+from ..serializers import UserSerializer, UserLoginSerializer, CustomTokenObtainPairSerializer
 
 
 class UserCreate(generics.CreateAPIView):
@@ -43,3 +44,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
         if self.request.user != obj:
             raise PermissionDenied("You do not have permission to access this user")
         return obj
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer

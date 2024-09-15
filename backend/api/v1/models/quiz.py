@@ -12,4 +12,5 @@ class Quiz(BaseModel):
 
     class Meta:
         db_table = 'quizzes'
+        unique_together = ('id', 'module')
         ordering = ['created_at']

@@ -12,3 +12,4 @@ from .option import Option
 from .enrollment import Enrollment
 from .resource import Resource
 from .score import Score
+from .answer import Answer

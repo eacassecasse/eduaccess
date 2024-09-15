@@ -14,4 +14,5 @@ class Option(BaseModel):
 
     class Meta:
         db_table = 'options'
+        unique_together = ('id', 'question')
         ordering = ['created_at']
