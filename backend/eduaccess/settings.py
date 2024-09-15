@@ -28,7 +28,11 @@ SECRET_KEY = 'django-insecure-xfaj80-ckbup!cw-=s-cu*zt@7tip%t31od0v=3=yv#=#7+*p@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'eduaccess.up.railway.app',
+]
 
 # Application definition
 
