@@ -93,11 +93,22 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 # Configuring Cross-Origin Resource Sharing (CORS)
-CORS_ALLOW_ALL_ORIGINS = True  # Remove this in prodution environment
+# CORS_ALLOW_ALL_ORIGINS = True  # Remove this in prodution environment
 
-# CORS_ALLOWED_ORIGINS = ['*']  # Change this to a specific list of hosts in production
+CORS_ALLOWED_ORIGINS = ['https://eduaccess.up.railway.app']  # Change this to a specific list of hosts in production
 
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
+
+# Enforce HTTPS
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # In case you're using a proxy/load balancer
+SECURE_HSTS_SECONDS = 31536000  # Enables HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Applies HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allows your domain to be preloaded in browsers as HTTPS
+SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's XSS protection
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browsers from interpreting files as a different MIME type
+SESSION_COOKIE_SECURE = True  # Use HTTPS for session cookies
+CSRF_COOKIE_SECURE = True  # Use HTTPS for CSRF cookies
 
 AUTH_PASSWORD_VALIDATORS = [
     {
