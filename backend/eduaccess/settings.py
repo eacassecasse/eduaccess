@@ -99,7 +99,10 @@ DATABASES = {
 # Configuring Cross-Origin Resource Sharing (CORS)
 # CORS_ALLOW_ALL_ORIGINS = True  # Remove this in prodution environment
 
-CORS_ALLOWED_ORIGINS = ['https://eduaccess.up.railway.app']  # Change this to a specific list of hosts in production
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://eduaccess.up.railway.app'
+]  # Change this to a specific list of hosts in production
 
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
 
