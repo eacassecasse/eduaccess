@@ -10,7 +10,7 @@ import Modal from "@/app/components/modal";
 import { set } from "zod";
 
 
-export function CourseList() {
+const CourseList = () => {
     const { courses, loading, error } = useCourses();
     const [open, setOpen] = useState(false)
 

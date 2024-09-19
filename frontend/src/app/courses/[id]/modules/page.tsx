@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { Spinner } from '@nextui-org/spinner'
 import LessonContent from '@/app/components/content';
 
-export default function CourseDetail() {
+const Modules = () => {
   const [openTag, setOpenTag] = useState(null);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [selectedModule, setSelectedModule] = useState(null);
@@ -112,3 +112,5 @@ export default function CourseDetail() {
     </div>
   );
 }
+
+export default Modules;
