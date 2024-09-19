@@ -36,6 +36,7 @@ class UserLogin(generics.GenericAPIView):
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    lookup_field = 'id'
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
