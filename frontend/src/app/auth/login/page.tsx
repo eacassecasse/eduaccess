@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth } from "@/app/context/AuthContext";
 
-function SignIn() {
+const SignIn = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);

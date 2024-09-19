@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { z } from "zod"
 
-function SignUp() {
+const SignUp = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
