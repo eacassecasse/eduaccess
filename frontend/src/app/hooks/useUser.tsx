@@ -21,7 +21,7 @@ const useUser = (id: string) => {
     };
 
     fetchUser();
-  }, []);
+  }, [id]);
 
   return { user, loading, error };
 };

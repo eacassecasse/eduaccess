@@ -5,6 +5,7 @@ import useModules from "@/app/hooks/useModules";
 import { useParticipants } from "@/app/hooks/useParticipants";
 import { BeakerIcon, LightBulbIcon, ArrowsPointingInIcon, InformationCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Spinner } from "@nextui-org/spinner";
+import Image from "next/image";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -31,7 +32,7 @@ export function CourseDetail() {
     if (name) setCourseName(name)
     if (prev_img) setCoursePrevImg(prev_img)
     if (description) setCourseDescription(description)
-  }, [])
+  }, [query])
 
 
 
@@ -79,7 +80,7 @@ export function CourseDetail() {
             </div>
           </div>
           <div className="col-span-1 rounded-lg shadow-md max-h-44">
-            <img
+            <Image
               src={coursePrevImg}
               alt={courseName}
               className="object-cover w-full h-full rounded-md"
@@ -104,7 +105,7 @@ export function CourseDetail() {
           <h1 className="text-lg text-semibold">Enrolled Participants</h1>
         </div>
         {loading && Array.from({ length: 16 }, (_, index) => (
-          <div className="animate-pulse flex space-x-4">
+          <div key={index} className="animate-pulse flex space-x-4">
             <div className="overflow-hidden rounded-lg shadow-md"></div>
           </div>
         ))}
@@ -116,7 +117,7 @@ export function CourseDetail() {
 
         {!isLoading && !hasError && images.map((image) => (
           <div key={image.id} className="overflow-hidden rounded-lg shadow-md">
-            <img
+            <Image
               src={`https://picsum.photos/id/${image.id}/300/300`}
               alt={image.author}
               className="object-cover w-full h-full"
