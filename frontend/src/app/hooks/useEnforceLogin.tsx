@@ -13,5 +13,5 @@ export const useEnforceLogin = () => {
             router.push('/auth/login');
             nookies.destroy(null, 'access_token');
         }
-    }, []);
+    }, [router]);
 }

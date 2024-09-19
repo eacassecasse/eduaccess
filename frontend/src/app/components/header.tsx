@@ -2,6 +2,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useAuth } from '@/app/context/AuthContext'
+import Image from 'next/image';
 
 const navigation = [
     { name: 'Dashboard', href: '#', current: true },
@@ -44,7 +45,7 @@ export default function Header() {
                                     <a
                                         key={item.name}
                                         href={item.href}
-                                        aria-current={item.current ? 'page' : undefined}
+                                        aria-current={ item.current ? 'page' : undefined }
                                         className={classNames(
                                             item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                             'rounded-md px-3 py-2 text-sm font-medium',
@@ -67,44 +68,45 @@ export default function Header() {
                         </button>
 
                         {/* Profile dropdown */}
-                        {user ? (<Menu as="div" className="relative ml-3">
-                            <div>
-                                <MenuButton className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-800">
-                                    <span className="absolute -inset-1.5" />
-                                    <span className="sr-only">Open user menu</span>
-                                    <img
-                                        alt={user.name || 'User'}
-                                        src={user.profile_image || 'https://www.gravatar.com/avatar/?d=mp'}
-                                        className="h-8 w-8 rounded-full"
-                                    />
-                                </MenuButton>
-                            </div>
-                            <MenuItems
-                                transition
-                                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
-                            >
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                        Your Profile
-                                    </a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                        Settings
-                                    </a>
-                                </MenuItem>
-                                <MenuItem>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                        Sign out
-                                    </a>
-                                </MenuItem>
-                            </MenuItems>
-                        </Menu>) :
+                        {user ? (
+                            <Menu as="div" className="relative ml-3">
+                                <div>
+                                    <MenuButton className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-800">
+                                        <span className="absolute -inset-1.5" />
+                                        <span className="sr-only">Open user menu</span>
+                                        <Image
+                                            alt={user.name || 'User'}
+                                            src={user.profile_image || 'https://www.gravatar.com/avatar/?d=mp'}
+                                            className="h-8 w-8 rounded-full"
+                                        />
+                                    </MenuButton>
+                                </div>
+                                <MenuItems
+                                    transition
+                                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                                >
+                                    <MenuItem>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                            Your Profile
+                                        </a>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                            Settings
+                                        </a>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                            Sign out
+                                        </a>
+                                    </MenuItem>
+                                </MenuItems>
+                            </Menu>) :
                             (<div className="relative ml-3">
                                 <div className="relative flex rounded-full bg-gray-300 text-sm focus:outline-none cursor-not-allowed">
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">User menu disabled</span>
-                                    <img
+                                    <Image
                                         alt="Placeholder"
                                         src="https://www.gravatar.com/avatar/?d=mp"
                                         className="h-8 w-8 rounded-full opacity-50"
