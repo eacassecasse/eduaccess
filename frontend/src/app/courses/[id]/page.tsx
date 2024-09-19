@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface Module {
+export interface ModuleProps {
   id: string
   title: string
 }

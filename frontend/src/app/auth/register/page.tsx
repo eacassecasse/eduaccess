@@ -8,7 +8,7 @@ const SignUp = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<any[]>([]);
 
-    const onSubmit = async (ev: any) => {
+    const onSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
 
         try {

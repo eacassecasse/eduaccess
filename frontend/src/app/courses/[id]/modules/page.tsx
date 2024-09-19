@@ -9,11 +9,12 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Spinner } from '@nextui-org/spinner'
 import LessonContent from '@/app/components/content';
+import { ModuleProps } from '../page';
 
 const Modules = () => {
-  const [openTag, setOpenTag] = useState(null);
+  const [openTag, setOpenTag] = useState<string | null>(null);
   const [selectedLesson, setSelectedLesson] = useState(null);
-  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedModule, setSelectedModule] = useState<ModuleProps | null>(null);
   const { id } = useParams();
   const { modules, loading, error } = useModules(id.toString());
   const { lessons, loading: lessonsLoading, error: lessonsError } = useLessons(selectedModule?.id || null);
@@ -28,7 +29,7 @@ const Modules = () => {
     return <div className="flex justify-center items-center h-screen">Error: {error}</div>;
   }
 
-  const handleToggle = (module) => {
+  const handleToggle = (module: ModuleProps) => {
     if (openTag === module.id) {
       setOpenTag(null);
       setSelectedModule(null); // Close module and reset lessons
@@ -38,7 +39,7 @@ const Modules = () => {
     }
   };
 
-  const handleLessonClick = (lesson) => {
+  const handleLessonClick = (lesson: any) => {
     setSelectedLesson(lesson); // Set selected lesson for viewing content
   };
 
