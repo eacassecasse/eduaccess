@@ -1,169 +1,138 @@
-import React from "react";
-import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
-    NavigationMenuViewport,
-} from "@/app/components/ui/navigation-menu"
-import { cn } from "@/app/lib/utils";
-import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
+"use client"
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useAuth } from '@/app/context/AuthContext'
 
-
-const components: { title: string; href: string; description: string }[] = [
-    {
-        title: "Alert Dialog",
-        href: "/docs/primitives/alert-dialog",
-        description:
-            "A modal dialog that interrupts the user with important content and expects a response.",
-    },
-    {
-        title: "Hover Card",
-        href: "/docs/primitives/hover-card",
-        description:
-            "For sighted users to preview content available behind a link.",
-    },
-    {
-        title: "Progress",
-        href: "/docs/primitives/progress",
-        description:
-            "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-        title: "Scroll-area",
-        href: "/docs/primitives/scroll-area",
-        description: "Visually or semantically separates content.",
-    },
-    {
-        title: "Tabs",
-        href: "/docs/primitives/tabs",
-        description:
-            "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-        title: "Tooltip",
-        href: "/docs/primitives/tooltip",
-        description:
-            "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-    },
+const navigation = [
+    { name: 'Dashboard', href: '#', current: true },
+    { name: 'Courses', href: '#', current: false },
+    { name: 'Assignments', href: '#', current: false },
+    { name: 'Resources', href: '#', current: false },
 ]
 
-function Header() {
-    return (
-        <header className="flex items-center justify-between px-6 py-4">
-            <h1 className="font-bold text-2xl text-slate-800">EduAccess</h1>
-            <NavigationMenu>
-                <NavigationMenuList>
-                    {/*<NavigationMenuItem>
-                        <NavigationMenuTrigger>Home</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                                <li className="row-span-3">
-                                    <NavigationMenuLink asChild>
-                                        <a
-                                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                            href="/"
-                                        >
-                                            <div className="mb-2 mt-4 text-lg font-medium">
-                                                shadcn/ui
-                                            </div>
-                                            <p className="text-sm leading-tight text-muted-foreground">
-                                                Beautifully designed components that you can copy and
-                                                paste into your apps. Accessible. Customizable. Open
-                                                Source.
-                                            </p>
-                                        </a>
-                                    </NavigationMenuLink>
-                                </li>
-                                <ListItem href="/docs" title="Introduction">
-                                    Re-usable components built using Radix UI and Tailwind CSS.
-                                </ListItem>
-                                <ListItem href="/docs/installation" title="Installation">
-                                    How to install dependencies and structure your app.
-                                </ListItem>
-                                <ListItem href="/docs/primitives/typography" title="Typography">
-                                    Styles for headings, paragraphs, lists...etc
-                                </ListItem>
-                            </ul>
-                        </NavigationMenuContent>
-                    </NavigationMenuItem>*/}
-                    <NavigationMenuItem>
-                        <Link href="/" className="border" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Home
-                            </NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <Link href="/courses" className="border" legacyBehavior passHref>
-                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                Courses
-                            </NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button className="border">Login</Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuGroup>
-                                <DropdownMenuItem>
-                                        <Link href="/auth/login" className="border" legacyBehavior passHref>
-                                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                                Login
-                                            </NavigationMenuLink>
-                                        </Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <Link href="/auth/register" className="border" legacyBehavior passHref>
-                                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                                                Register
-                                            </NavigationMenuLink>
-                                        </Link>
-                                    </DropdownMenuItem>
-                                </DropdownMenuGroup>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </NavigationMenuItem>
-                </NavigationMenuList>
-            </NavigationMenu>
 
-        </header>
-    );
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
 }
 
+export default function Header() {
+    const { user } = useAuth()
 
-const ListItem = React.forwardRef<
-    React.ElementRef<"a">,
-    React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
     return (
-        <li>
-            <NavigationMenuLink asChild>
-                <a
-                    ref={ref}
-                    className={cn(
-                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                        className
-                    )}
-                    {...props}
-                >
-                    <div className="text-sm font-medium leading-none">{title}</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {children}
-                    </p>
-                </a>
-            </NavigationMenuLink>
-        </li>
-    )
-})
-ListItem.displayName = "ListItem"
+        <Disclosure as="nav">
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                <div className="relative flex h-24 items-center justify-between">
+                    <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                        {/* Mobile menu button*/}
+                        <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                            <span className="absolute -inset-0.5" />
+                            <span className="sr-only">Open main menu</span>
+                            <Bars3Icon aria-hidden="true" className="block h-6 w-6 group-data-[open]:hidden" />
+                            <XMarkIcon aria-hidden="true" className="hidden h-6 w-6 group-data-[open]:block" />
+                        </DisclosureButton>
+                    </div>
+                    <div className="flex flex-1 items-center justify-between sm:items-center">
+                        {/* Left: Logo */}
+                        <div className="flex flex-shrink-0 items-center">
+                            <h1 className="font-bold text-2xl text-slate-800">EduAccess</h1>
+                        </div>
 
-export default Header;
+                        {/* Center: Navigation */}
+                        <div className="hidden sm:block flex-grow">
+                            <div className="flex justify-center space-x-4">
+                                {navigation.map((item) => (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        aria-current={item.current ? 'page' : undefined}
+                                        className={classNames(
+                                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                            'rounded-md px-3 py-2 text-sm font-medium',
+                                        )}
+                                    >
+                                        {item.name}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                        <button
+                            type="button"
+                            className="relative rounded-full p-1 text-gray-400 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-800"
+                        >
+                            <span className="absolute -inset-1.5" />
+                            <span className="sr-only">View notifications</span>
+                            <BellIcon aria-hidden="true" className="h-6 w-6" />
+                        </button>
+
+                        {/* Profile dropdown */}
+                        {user ? (<Menu as="div" className="relative ml-3">
+                            <div>
+                                <MenuButton className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-800">
+                                    <span className="absolute -inset-1.5" />
+                                    <span className="sr-only">Open user menu</span>
+                                    <img
+                                        alt={user.name || 'User'}
+                                        src={user.profile_image || 'https://www.gravatar.com/avatar/?d=mp'}
+                                        className="h-8 w-8 rounded-full"
+                                    />
+                                </MenuButton>
+                            </div>
+                            <MenuItems
+                                transition
+                                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                            >
+                                <MenuItem>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                        Your Profile
+                                    </a>
+                                </MenuItem>
+                                <MenuItem>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                        Settings
+                                    </a>
+                                </MenuItem>
+                                <MenuItem>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                                        Sign out
+                                    </a>
+                                </MenuItem>
+                            </MenuItems>
+                        </Menu>) :
+                            (<div className="relative ml-3">
+                                <div className="relative flex rounded-full bg-gray-300 text-sm focus:outline-none cursor-not-allowed">
+                                    <span className="absolute -inset-1.5" />
+                                    <span className="sr-only">User menu disabled</span>
+                                    <img
+                                        alt="Placeholder"
+                                        src="https://www.gravatar.com/avatar/?d=mp"
+                                        className="h-8 w-8 rounded-full opacity-50"
+                                    />
+                                </div>
+                            </div>)}
+                    </div>
+                </div>
+            </div>
+
+            <DisclosurePanel className="sm:hidden">
+                <div className="space-y-1 px-2 pb-3 pt-2">
+                    {navigation.map((item) => (
+                        <DisclosureButton
+                            key={item.name}
+                            as="a"
+                            href={item.href}
+                            aria-current={item.current ? 'page' : undefined}
+                            className={classNames(
+                                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                'block rounded-md px-3 py-2 text-base font-medium',
+                            )}
+                        >
+                            {item.name}
+                        </DisclosureButton>
+                    ))}
+                </div>
+            </DisclosurePanel>
+        </Disclosure>
+    )
+}

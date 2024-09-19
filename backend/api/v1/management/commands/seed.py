@@ -129,65 +129,65 @@ class Command(BaseCommand):
         ]
 
         # # Create Courses
-        # for _ in range(5):
-        #     course = Course.objects.create(
-        #         title=fake.sentence(),
-        #         description=fake.text(),
-        #         prev_img=fake.image_url(),
-        #         educator_id=random.choice(user_ids)
-        #     )
-        #     self.stdout.write(f'Created Course: {course.title}')
-        #
-        #     # Create Modules
-        #     for _ in range(random.randint(1, 3)):
-        #         module = Module.objects.create(
-        #             title=fake.sentence(),
-        #             description=fake.text(),
-        #             course=course
-        #         )
-        #         self.stdout.write(f'  Created Module: {module.title}')
-        #
-        #         # Create Lessons
-        #         for _ in range(random.randint(1, 5)):
-        #             Lesson.objects.create(
-        #                 title=fake.sentence(),
-        #                 content=fake.text(),
-        #                 module=module
-        #             )
-        #
-        #         # Create Quizzes
-        #         quiz = Quiz.objects.create(
-        #             title=fake.sentence(),
-        #             module=module
-        #         )
-        #         self.stdout.write(f'  Created Quiz: {quiz.title}')
-        #
-        #         # Create Questions
-        #         for _ in range(random.randint(2, 4)):
-        #             question = Question.objects.create(
-        #                 content=fake.sentence(),
-        #                 question_type=random.choice(['multiple_choice', 'true_false']),
-        #                 quiz=quiz
-        #             )
-        #             self.stdout.write(f'    Created Question: {question.content}')
-        #
-        #             # Create Options
-        #             for _ in range(random.randint(2, 4)):
-        #                 Option.objects.create(
-        #                     content=fake.word(),
-        #                     is_correct=random.choice([True, False]),
-        #                     question=question
-        #                 )
-        #
+        for _ in range(5):
+            course = Course.objects.create(
+                title=fake.sentence(),
+                description=fake.text(),
+                prev_img=fake.image_url(),
+                educator_id=random.choice(user_ids)
+            )
+            self.stdout.write(f'Created Course: {course.title}')
+
+            #     # Create Modules
+            for _ in range(random.randint(1, 3)):
+                module = Module.objects.create(
+                    title=fake.sentence(),
+                    description=fake.text(),
+                    course=course
+                )
+                self.stdout.write(f'  Created Module: {module.title}')
+
+                #         # Create Lessons
+                for _ in range(random.randint(1, 5)):
+                    Lesson.objects.create(
+                        title=fake.sentence(),
+                        content=fake.text(),
+                        module=module
+                    )
+
+                #         # Create Quizzes
+                quiz = Quiz.objects.create(
+                    title=fake.sentence(),
+                    module=module
+                )
+                self.stdout.write(f'  Created Quiz: {quiz.title}')
+
+                #         # Create Questions
+                for _ in range(random.randint(2, 4)):
+                    question = Question.objects.create(
+                        content=fake.sentence(),
+                        question_type=random.choice(['multiple_choice', 'true_false']),
+                        quiz=quiz
+                    )
+                    self.stdout.write(f'    Created Question: {question.content}')
+
+                    # Create Options
+                    for _ in range(random.randint(2, 4)):
+                        Option.objects.create(
+                            content=fake.word(),
+                            is_correct=random.choice([True, False]),
+                            question=question
+                        )
+
         # # Create Resources
-        # for _ in range(5):
-        #     Resource.objects.create(
-        #         title=fake.sentence(),
-        #         description=fake.text(),
-        #         url=fake.url(),
-        #         creator_id=random.choice(user_ids)
-        #     )
-        #     self.stdout.write('Created Resource')
+        for _ in range(5):
+            Resource.objects.create(
+                title=fake.sentence(),
+                description=fake.text(),
+                url=fake.url(),
+                creator_id=random.choice(user_ids)
+            )
+            self.stdout.write('Created Resource')
 
         # Create Scores
         for _ in range(10):
