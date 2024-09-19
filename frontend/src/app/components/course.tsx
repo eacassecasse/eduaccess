@@ -3,33 +3,45 @@ import Image from "next/image";
 import { Button } from "@/app/components/ui/button";
 import { useRouter } from "next/navigation";
 
-function Course({ course }) {
+export interface CourseProps {
+    id: string
+    title: string
+    prev_img: string
+    description: string
+}
+
+interface Course {
+    course: CourseProps
+}
+
+function Course({ course }: Course) {
     const router = useRouter()
 
-    const handleSaveClick = (id) => {
-        router.push(`/courses/${id}`)
+    const handleSaveClick = (id: string, name: string, prev_img: string, description: string) => {
+        const url = `/courses/${id}?course-name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&prev_img=${encodeURIComponent(prev_img)}`;
+        router.push(url)
     }
 
     return (
-        <div className="w-full shadow-md p-5 gap-4 border rounded-md max-h-96 flex flex-col bg-white">
+        <div className="w-full shadow-md p-5 gap-4 border rounded-md max-h-[24rem] flex flex-col bg-white">
             <Image
-                className="border w-56 h-40 rounded-lg object-cover"
-                src={course.image}
-                alt={course.name}
+                className="border w-full h-40 rounded-lg object-cover"
+                src={course.prev_img}
+                alt={course.title}
                 width={224}
                 height={128}
                 priority
             />
-            <h4 className="font-bold text-xl text-slate-700 mt-4">
-                {course.name}
+            <h4 className="font-bold text-xl text-slate-700 mt-4 truncate">
+                {course.title}
             </h4>
-            <p className="font-normal text-sm text-gray-600 mb-4 text-wrap">
+            <p className="font-normal text-sm text-gray-600 mb-4 overflow-hidden text-ellipsis whitespace-nowrap max-h-10">
                 {course.description}
             </p>
 
             <div className="flex gap-4 mt-auto w-full">
-                <Button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-md" onClick={() => handleSaveClick(course.id)}>
-                    Enroll
+                <Button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-md" onClick={() => handleSaveClick(course.id, course.title, course.prev_img, course.description)}>
+                    View Course
                 </Button>
                 <Button className="bg-white text-slate-800 border border-slate-400 hover:bg-slate-800 hover:text-white px-4 py-2 rounded-md">
                     Save for later
