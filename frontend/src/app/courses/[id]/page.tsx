@@ -14,7 +14,7 @@ interface Module {
   title: string
 }
 
-export function CourseDetail() {
+const CourseDetail = () => {
   const { id } = useParams()
   const [courseName, setCourseName] = useState('')
   const [coursePrevImg, setCoursePrevImg] = useState('')
