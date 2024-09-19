@@ -12,7 +12,7 @@ const navigation = [
 ]
 
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
@@ -33,12 +33,10 @@ export default function Header() {
                         </DisclosureButton>
                     </div>
                     <div className="flex flex-1 items-center justify-between sm:items-center">
-                        {/* Left: Logo */}
                         <div className="flex flex-shrink-0 items-center">
                             <h1 className="font-bold text-2xl text-slate-800">EduAccess</h1>
                         </div>
 
-                        {/* Center: Navigation */}
                         <div className="hidden sm:block flex-grow">
                             <div className="flex justify-center space-x-4">
                                 {navigation.map((item) => (
