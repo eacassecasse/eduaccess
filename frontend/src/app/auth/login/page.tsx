@@ -18,7 +18,7 @@ const SignIn = () => {
     const { login } = useAuth()
 
 
-    const handleLogin = async (ev) => {
+    const handleLogin = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         setIsLoading(true);
 
