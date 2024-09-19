@@ -46,7 +46,7 @@ function SignUp() {
 
 
     return (
-        <div className="flex mt-4 py-8">
+        <div className="flex mt-4 py-20">
             <form className="w-96 flex flex-col flex-nowrap items-center justify-center px-8 pt-10 pb-14 shadow-lg rounded-md gap-10 m-auto border" method="post" onSubmit={onSubmit}>
                 <div className="flex flex-col gap-4">
                     <h1 className="font-bold text-3xl text-slate-800">Access the platform</h1>
@@ -87,7 +87,7 @@ function SignUp() {
                     </div>
                     <button className="w-full px-6 py-4 bg-red-600 hover:bg-red-400 rounded-xl font-bold text-sm text-white" type="button">Sign Up</button>
                     <p className="flex flex-row flex-nowrap gap-1 text-base font-normal text-slate-600">
-                        Already have an account? <a href="#" className="text-red-600">Log in</a>
+                        Already have an account? <a href="/auth/login" className="text-red-600">Log in</a>
                     </p>
                 </div>
             </form>

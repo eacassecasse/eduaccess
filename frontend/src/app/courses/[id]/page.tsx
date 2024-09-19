@@ -1,44 +1,60 @@
 "use client"
 import { Button } from "@/app/components/ui/button";
 import { Skeleton } from "@/app/components/ui/skeleton";
+import useModules from "@/app/hooks/useModules";
 import { useParticipants } from "@/app/hooks/useParticipants";
 import { BeakerIcon, LightBulbIcon, ArrowsPointingInIcon, InformationCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { v4 as uuid4 } from 'uuid';
+import { Spinner } from "@nextui-org/spinner";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-
+interface Module {
+  id: string
+  title: string
+}
 
 export function CourseDetail() {
   const { id } = useParams()
-  const [course, setCourse] = useState(null)
-  const { images, loading, error } = useParticipants()
+  const [courseName, setCourseName] = useState('')
+  const [coursePrevImg, setCoursePrevImg] = useState('')
+  const [courseDescription, setCourseDescription] = useState('')
+  const { modules, loading, error } = useModules(id.toString())
+  const { images, isLoading, hasError } = useParticipants()
   const router = useRouter()
+  const query = useSearchParams()
 
-  const handleSaveClick = () => {
-    router.push(`/courses/${id}/modules/`)
+  useEffect(() => {
+    const name = query.get('course-name')
+    const prev_img = query.get('prev_img')
+    const description = query.get('description')
+
+    if (name) setCourseName(name)
+    if (prev_img) setCoursePrevImg(prev_img)
+    if (description) setCourseDescription(description)
+  }, [])
+
+
+
+  const handleView = () => {
+    router.push(`/courses/${id}/modules/`);
   }
 
-  /*useEffect(() => {
-    if (id) {
-      const fetchCourse = async () => {
-        const res = await fetch(`/api/courses/${id}`);
-        const data = await res.json();
-        setCourse(data);
-      };
+  if (loading) {
+    return <div className="flex items-center justify-center w-full h-screen bg-white">
+      <Spinner label="Loading..." color="default" labelColor="foreground" />
+    </div>;
+  }
 
-      fetchCourse();
-    }
-  }, [id]);
-
-  if (!course) return <div>Loading...</div>;*/
+  if (error) {
+    return <div>Error: {error}</div>
+  }
 
   return (
     <div className="grid grid-cols-3 gap-4 p-8">
       <div className="w-full col-span-2 shadow-md p-5 gap-4 rounded-md max-h-96 flex flex-col bg-slate-200">
         <div className="grid grid-cols-3 gap-4">
           <div className="col-span-2 grid grid-cols-3">
-            <p className="text-2xl col-span-3">{id}</p>
+            <p className="text-2xl col-span-3">{courseName}</p>
             <p className="text-sm col-span-3">Required for: {id}</p>
             <div className="col-span-2 grid grid-cols-2 mt-3">
               <ul className="flex flex-col">
@@ -51,54 +67,34 @@ export function CourseDetail() {
               <ul className="flex flex-col">
                 <li className="text-sm">Assessment</li>
                 <li className="text-sm">Credentials</li>
-                <li className="text-sm">Modules</li>
-                <li className="text-sm">Time estimation</li>
-                <li className="text-sm">Due date</li>
+                <li className="text-sm">{modules.length} {modules.length <= 1 ? + 'Module' : 'Modules'}</li>
+                <li className="text-sm">{modules.length} Months</li>
+                <li className="text-sm">{new Date().toDateString()}</li>
               </ul>
             </div>
             <div className="mt-auto flex justify-end">
-              <Button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-md" onClick={() => handleSaveClick()}>
+              <Button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-md" onClick={() => handleView()}>
                 Begin modules
               </Button>
             </div>
           </div>
           <div className="col-span-1 rounded-lg shadow-md max-h-44">
             <img
-              src='https://picsum.photos/id/20/300/300'
-              alt="Somewhere over the internet"
+              src={coursePrevImg}
+              alt={courseName}
               className="object-cover w-full h-full rounded-md"
             />
           </div>
-          <div className="col-span-3 grid grid-cols-3 gap-4 px-6 py-8">
-            <div className="flex flex-col gap-3">
-              <div className="col-span-4">
-                <h4 className="text-sm text-bold">Chapter 1: Introduction to</h4>
-              </div>
-              <ul className="flex flex-col">
-                <li className="text-sm">1: Importance of Simulations</li>
-                <li className="text-sm">2: Navigating Simulations</li>
-                <li className="text-sm">3: Overview of Simulated Projects</li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="col-span-4">
-                <h4 className="text-sm text-bold">Chapter 2: Planning Simulation</h4>
-              </div>
-              <ul className="flex flex-col">
-                <li className="text-sm">1: Defining Project Goals and Scope</li>
-                <li className="text-sm">2: Allocating Resources</li>
-                <li className="text-sm">3: Creating Project Timelines</li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="col-span-4">
-                <h4 className="text-sm text-bold">Chapter 3: Executing Simulations</h4>
-              </div>
-              <ul className="flex flex-col">
-                <li className="text-sm">1: Team Leadership Cooperation</li>
-                <li className="text-sm">2: Managing Risks and issues</li>
-                <li className="text-sm">3: Project Completion and Evaluation</li>
-              </ul>
+          <div className="col-span-3 grid grid-cols-3 gap-6 py-4">
+            <div className="col-span-2">{courseDescription}</div>
+            <div className="col-span-1 flex flex-col gap-3">
+              {
+                modules.slice(0, 3).map((module, index) => (
+                  <ul key={index}>
+                    <li className="text-sm text-bold">Module {index + 1}: {module.title}</li>
+                  </ul>
+                ))
+              }
             </div>
           </div>
         </div>
@@ -108,7 +104,9 @@ export function CourseDetail() {
           <h1 className="text-lg text-semibold">Enrolled Participants</h1>
         </div>
         {loading && Array.from({ length: 16 }, (_, index) => (
-          <Skeleton className="overflow-hidden rounded-lg shadow-md" />
+          <div className="animate-pulse flex space-x-4">
+            <div className="overflow-hidden rounded-lg shadow-md"></div>
+          </div>
         ))}
         {error && (
           <div className="text-center text-red-500 p-4">
@@ -116,7 +114,7 @@ export function CourseDetail() {
           </div>
         )}
 
-        {!loading && !error && images.map((image) => (
+        {!isLoading && !hasError && images.map((image) => (
           <div key={image.id} className="overflow-hidden rounded-lg shadow-md">
             <img
               src={`https://picsum.photos/id/${image.id}/300/300`}

@@ -9,12 +9,12 @@ interface ImageData {
 
 export function useParticipants() {
   const [images, setImages] = useState<ImageData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
-      setLoading(true);
+      setIsLoading(true);
       try {
         const res = await fetch('https://picsum.photos/v2/list?page=1&limit=16');
         if (!res.ok) {
@@ -23,14 +23,14 @@ export function useParticipants() {
         const data = await res.json();
         setImages(data);
       } catch (err) {
-        setError(err.message);
+        setHasError(err.message);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     fetchImages();
   }, []); // Only fetch once on component mount
 
-  return { images, loading, error };
+  return { images, isLoading, hasError };
 }
