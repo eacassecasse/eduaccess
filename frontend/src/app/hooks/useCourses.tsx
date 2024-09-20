@@ -13,7 +13,7 @@ const useCourses = () => {
       try {
         const data = await getCourses();
         setCourses(data.results)
-      } catch (err) {
+      } catch (err: any) {
         setError('Failed to load courses: ' + err.message);
       } finally {
         setLoading(false)
