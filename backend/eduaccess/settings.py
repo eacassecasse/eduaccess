@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'eduaccess.up.railway.app',
+    'eduaccess-5n4v3k9z5-eacassecasses-projects.vercel.app'
 ]
 
 # Application definition
@@ -102,6 +103,7 @@ DATABASES = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://eduaccess.up.railway.app'
+    'https://eduaccess-5n4v3k9z5-eacassecasses-projects.vercel.app'
 ]  # Change this to a specific list of hosts in production
 
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']
