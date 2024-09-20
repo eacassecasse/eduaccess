@@ -3,17 +3,18 @@ import { Button } from '@/app/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/app/components/ui/collapsible';
 import { ScrollArea } from '@/app/components/ui/scroll-area';
 import useModules from '@/app/hooks/useModules';
-import useLessons from '@/app/hooks/useLessons';
+import { LessonProps } from '@/app/components/content';
 import { Plus, Video, FileText } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Spinner } from '@nextui-org/spinner'
 import LessonContent from '@/app/components/content';
 import { ModuleProps } from '../page';
+import useLessons from '@/app/hooks/useLessons';
 
 const Modules = () => {
   const [openTag, setOpenTag] = useState<string | null>(null);
-  const [selectedLesson, setSelectedLesson] = useState(null);
+  const [selectedLesson, setSelectedLesson] = useState<LessonProps | null>(null);
   const [selectedModule, setSelectedModule] = useState<ModuleProps | null>(null);
   const { id } = useParams();
   const { modules, loading, error } = useModules(id.toString());
@@ -81,6 +82,7 @@ const Modules = () => {
                   <Spinner label="Loading Lessons..." color="default" labelColor="foreground"/></div>}
                 {lessonsError && selectedModule?.id === module.id && <div>Error: {lessonsError}</div>}
                 {selectedModule?.id === module.id && lessons.map((lesson) => (
+                  
                   <div
                     key={lesson.id}
                     className="rounded-md border p-3 bg-gray-50 hover:bg-gray-200 cursor-pointer transition-all duration-150"
