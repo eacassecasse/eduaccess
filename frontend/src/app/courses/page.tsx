@@ -32,7 +32,6 @@ const CourseList = () => {
             {error && (
                 <Modal
                     open={open}
-                    setOpen={setOpen}
                     title="Course Library Error"
                     description={error}
                 />

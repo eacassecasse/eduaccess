@@ -2,10 +2,18 @@
 
 import { Dialog } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 
-export default function Modal({ open, setOpen, title, description }) {
+interface ModalProps {
+  open: boolean
+  title: string
+  description: string
+}
+
+export default function Modal({ open, title, description }: ModalProps) {
+  const [state, setState] = useState(false)
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
+    <Dialog open={open} onClose={() => setState(false)} className="relative z-10">
       {/* The Backdrop */}
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
@@ -33,7 +41,7 @@ export default function Modal({ open, setOpen, title, description }) {
             
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={() => setState(!open)}
               className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
             >
               Ok
