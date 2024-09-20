@@ -19,7 +19,7 @@ export const isTokenExpired = (token: string) => {
     const exp = payload.exp * 1000;
 
     return Date.now() > exp;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to decode token", error)
     return true;
   }
@@ -52,7 +52,7 @@ export const refreshAccessToken = async () => {
 
     return access;
 
-  } catch (err) {
+  } catch (err: any) {
     console.error('Failed to refresh token', err);
     throw err
     // Log out user or handle error

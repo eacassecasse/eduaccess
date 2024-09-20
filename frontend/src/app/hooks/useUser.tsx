@@ -13,7 +13,7 @@ const useUser = (id: string) => {
       try {
         const data = await getUser(id);
         setUser(data.results)
-      } catch (err) {
+      } catch (err: any) {
         setError('Failed to load courses: ' + err.message);
       } finally {
         setLoading(false)

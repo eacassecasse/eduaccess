@@ -14,7 +14,7 @@ interface Course {
     course: CourseProps
 }
 
-function Course({ course }: Course) {
+const Course = ({ course }: Course) => {
     const router = useRouter()
 
     const handleSaveClick = (id: string, name: string, prev_img: string, description: string) => {
