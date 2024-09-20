@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 
-function Footer() {
+const Footer = () => {
     return (
         <footer className="flex items-center justify-between px-6 py-4 bg-slate-100">
             <div className="copyright">&copy; 2024 EduAccess</div>

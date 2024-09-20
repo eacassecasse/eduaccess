@@ -33,7 +33,7 @@ api.interceptors.response.use(
                 originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
                 return api(originalRequest);
-            } catch (refreshError) {
+            } catch (refreshError: any) {
                 console.log("Failed to refresh token", refreshError)
             }
         }

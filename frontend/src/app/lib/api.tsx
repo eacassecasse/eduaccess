@@ -20,7 +20,7 @@ export async function fetchData(endpoint: string) {
       throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);
     }
     return await response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error("API fetch error:", error);
     throw error;
   }

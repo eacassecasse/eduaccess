@@ -22,7 +22,7 @@ export function useParticipants() {
         }
         const data = await res.json();
         setImages(data);
-      } catch (err) {
+      } catch (err: any) {
         setHasError(err.message);
       } finally {
         setIsLoading(false);

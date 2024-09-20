@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             const data: UserProps = await getUser(id); 
             setUser(data); 
-        } catch (err) {
+        } catch (err: any) {
             console.error('Failed to fetch user data:', err.message);
             throw new Error('Failed to fetch user data: ' + err.message);
         }

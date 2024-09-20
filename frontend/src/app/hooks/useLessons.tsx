@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { getLessons } from "@/app/lib/api";
+import { LessonProps } from "@/app/components/content";
 
-interface LessonsProps {
-  id: string;
-  title: string;
-  description: string;
-}
 
 const useLessons = (moduleId: string | null) => {
-  const [lessons, setLessons] = useState<LessonsProps[]>([]);
+  const [lessons, setLessons] = useState<LessonProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

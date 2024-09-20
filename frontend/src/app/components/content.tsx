@@ -1,10 +1,9 @@
 import React from "react";
 import { Video, FileText } from "lucide-react";
 
-interface LessonProps {
+export interface LessonProps {
   id: string;
   title: string;
-  description: string;
   content: string;
   contentType: "video" | "text"; // Add more types if necessary
 }
@@ -14,7 +13,7 @@ interface LessonContentProps {
 }
 
 const LessonContent: React.FC<LessonContentProps> = ({ lesson }) => {
-  const { title, description, content, contentType } = lesson;
+  const { title, content, contentType } = lesson;
 
   return (
     <div className="space-y-6">
@@ -27,7 +26,7 @@ const LessonContent: React.FC<LessonContentProps> = ({ lesson }) => {
         <h1 className="text-2xl font-bold">{title}</h1>
       </div>
 
-      <p className="text-gray-700 text-base">{description}</p>
+      <p className="text-gray-700 text-base">{content}</p>
 
       {contentType === "video" ? (
         <div className="w-full h-auto">
