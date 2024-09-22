@@ -6,6 +6,7 @@ from .user import ROLES
 from .course import Course
 from .module import Module
 from .lesson import Lesson
+from .lesson import LessonResource
 from .quiz import Quiz
 from .question import Question
 from .option import Option

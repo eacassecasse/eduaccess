@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
 from .utils import UUIDConverter
 from .views import UserCreate, UserLogin, UserDetail, CourseList, CourseDetail, ModuleList, ModuleDetail, LessonList, \
     LessonDetail, QuizList, QuizDetail, QuestionList, QuestionDetail, OptionList, OptionDetail, ScoreList, ScoreDetail, \
-    ResourceList, ResourceDetail, CustomTokenObtainPairView
+    ResourceList, ResourceDetail, CustomTokenObtainPairView, QuizSubmission
 
 register_converter(UUIDConverter, 'uuid')
 
@@ -23,8 +23,9 @@ urlpatterns = [
     path('modules/<uuid:id>/lessons/', LessonList.as_view(), name='lesson-list'),
     path('modules/<uuid:id>/lessons/<uuid:lesson_id>/', LessonDetail.as_view(), name='lesson-details'),
     path('modules/<uuid:id>/quizzes/', QuizList.as_view(), name='quiz-list'),
-    path('modules/<uuid:id>/quizes/<uuid:quiz_id>/', QuizDetail.as_view(), name='quiz-details'),
+    path('modules/<uuid:id>/quizzes/<uuid:quiz_id>/', QuizDetail.as_view(), name='quiz-details'),
     path('quizzes/<uuid:id>/questions/', QuestionList.as_view(), name='question-list'),
+    path('quizzes/<uuid:id>/submit/', QuizSubmission.as_view(), name='quiz-submission'),
     path('quizzes/<uuid:id>/questions/<uuid:question_id>/', QuestionDetail.as_view(), name='question-details'),
     path('questions/<uuid:id>/options/', OptionList.as_view(), name='option-list'),
     path('questions/<uuid:id>/options/<uuid:option_id>', OptionDetail.as_view(), name='option-details'),

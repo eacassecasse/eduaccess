@@ -12,6 +12,7 @@ from .lesson import LessonList
 from .lesson import LessonDetail
 from .quiz import QuizList
 from .quiz import QuizDetail
+from .quiz import QuizSubmission
 from .question import QuestionList
 from .question import QuestionDetail
 from .option import OptionList
