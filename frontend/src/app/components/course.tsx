@@ -4,11 +4,19 @@ import { Button } from "@/app/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export interface CourseProps {
-    id: string
-    title: string
-    prev_img: string
-    description: string
-}
+    id: string;
+    title: string;
+    prev_img: string;
+    description: string;
+    educator: string;  // Educator ID
+    students: {
+      id: string;
+      name: string;
+      email: string;
+      role: string;
+      profile_image: string;
+    }[];
+  }
 
 interface Course {
     course: CourseProps
@@ -17,8 +25,8 @@ interface Course {
 const Course = ({ course }: Course) => {
     const router = useRouter()
 
-    const handleSaveClick = (id: string, name: string, prev_img: string, description: string) => {
-        const url = `/courses/${id}?course-name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}&prev_img=${encodeURIComponent(prev_img)}`;
+    const handleSaveClick = (id: string) => {
+        const url = `/courses/${id}/`;
         router.push(url)
     }
 
@@ -40,7 +48,7 @@ const Course = ({ course }: Course) => {
             </p>
 
             <div className="flex gap-4 mt-auto w-full">
-                <Button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-md" onClick={() => handleSaveClick(course.id, course.title, course.prev_img, course.description)}>
+                <Button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-md" onClick={() => handleSaveClick(course.id)}>
                     View Course
                 </Button>
                 <Button className="bg-white text-slate-800 border border-slate-400 hover:bg-slate-800 hover:text-white px-4 py-2 rounded-md">

@@ -7,7 +7,7 @@ import { LessonProps } from '@/app/components/content';
 import { Plus, Video, FileText } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
-import { Spinner } from '@nextui-org/spinner'
+import { Spinner } from '@nextui-org/spinner';
 import LessonContent from '@/app/components/content';
 import { ModuleProps } from '../page';
 import useLessons from '@/app/hooks/useLessons';
@@ -18,12 +18,16 @@ const Modules = () => {
   const [selectedModule, setSelectedModule] = useState<ModuleProps | null>(null);
   const { id } = useParams();
   const { modules, loading, error } = useModules(id.toString());
+
+  // Fetch lessons based on the selected module's ID
   const { lessons, loading: lessonsLoading, error: lessonsError } = useLessons(selectedModule?.id || null);
 
   if (loading) {
-    return <div className="flex items-center justify-center w-full h-screen bg-white">
-      <Spinner label="Loading Modules..." color="default" labelColor="foreground" />
-    </div>;
+    return (
+      <div className="flex items-center justify-center w-full h-screen bg-white">
+        <Spinner label="Loading Modules..." color="default" labelColor="foreground" />
+      </div>
+    );
   }
 
   if (error) {
@@ -36,17 +40,27 @@ const Modules = () => {
       setSelectedModule(null); // Close module and reset lessons
     } else {
       setOpenTag(module.id);
-      setSelectedModule(module); // Set current module for lesson fetching
+      setSelectedModule(module); // Set the selected module to fetch lessons
     }
   };
 
-  const handleLessonClick = (lesson: any) => {
-    setSelectedLesson(lesson); // Set selected lesson for viewing content
+  const handleLessonClick = (lesson: LessonProps) => {
+    setSelectedLesson(lesson); // Set the selected lesson for viewing content
   };
 
   return (
-    <div className="flex flex-row flex-nowrap h-screen max-h-screen gap-4 p-8">
-      <ScrollArea className="h-full w-[25%] bg-slate-100 rounded-lg shadow-md">
+    <div className="flex flex-col md:flex-row h-screen max-h-screen gap-4 p-8">
+      {/* Right side - Display selected lesson content */}
+      <div className="flex-1 bg-white p-8 rounded-lg shadow-md overflow-y-auto mb-4 md:mb-0 md:max-w-[75%] md:order-2 min-h-[300px] md:min-h-0">
+        {selectedLesson ? (
+          <LessonContent lesson={selectedLesson} />
+        ) : (
+          <div className="text-center text-gray-500">Select a lesson to view the content</div>
+        )}
+      </div>
+
+      {/* Left side - Modules and lessons */}
+      <ScrollArea className="h-full w-full md:w-[25%] bg-slate-100 rounded-lg shadow-md md:order-1">
         <div className="p-4">
           <h4 className="text-lg font-bold leading-5 my-4">Modules</h4>
 
@@ -77,12 +91,17 @@ const Modules = () => {
                 </CollapsibleTrigger>
               </div>
 
+              {/* Render lessons for the selected module */}
               <CollapsibleContent className="space-y-2">
-                {lessonsLoading && selectedModule?.id === module.id && <div>
-                  <Spinner label="Loading Lessons..." color="default" labelColor="foreground"/></div>}
-                {lessonsError && selectedModule?.id === module.id && <div>Error: {lessonsError}</div>}
+                {lessonsLoading && selectedModule?.id === module.id && (
+                  <div>
+                    <Spinner label="Loading Lessons..." color="default" labelColor="foreground" />
+                  </div>
+                )}
+                {lessonsError && selectedModule?.id === module.id && (
+                  <div>Error: {lessonsError}</div>
+                )}
                 {selectedModule?.id === module.id && lessons.map((lesson) => (
-                  
                   <div
                     key={lesson.id}
                     className="rounded-md border p-3 bg-gray-50 hover:bg-gray-200 cursor-pointer transition-all duration-150"
@@ -103,17 +122,8 @@ const Modules = () => {
           ))}
         </div>
       </ScrollArea>
-
-      {/* Right side - Display selected lesson content */}
-      <div className="flex-1 bg-white p-8 rounded-lg shadow-md overflow-y-auto">
-        {selectedLesson ? (
-          <LessonContent lesson={selectedLesson} />
-        ) : (
-          <div className="text-center text-gray-500">Select a lesson to view the content</div>
-        )}
-      </div>
     </div>
   );
-}
+};
 
 export default Modules;

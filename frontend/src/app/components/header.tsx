@@ -75,6 +75,8 @@ export default function Header() {
                                         <Image
                                             alt={user.name || 'User'}
                                             src={user.profile_image || 'https://www.gravatar.com/avatar/?d=mp'}
+                                            width={150}
+                                            height={150}
                                             className="h-8 w-8 rounded-full"
                                         />
                                     </MenuButton>
@@ -107,6 +109,8 @@ export default function Header() {
                                     <Image
                                         alt="Placeholder"
                                         src="https://www.gravatar.com/avatar/?d=mp"
+                                        width={150}
+                                        height={150}
                                         className="h-8 w-8 rounded-full opacity-50"
                                     />
                                 </div>

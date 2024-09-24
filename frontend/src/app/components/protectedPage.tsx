@@ -25,7 +25,7 @@ const ProtectedPage = ({ children }: ProtectedPageProps) => {
     }, [token, router]);
 
     if (isLoading) {
-        return <div className="flex mx-auto h-screen">
+        return <div className="flex justify-center items-center mx-auto h-screen">
             <Spinner label="Loading..." color="default" labelColor="foreground"/>
         </div>;
     }

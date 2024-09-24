@@ -14,11 +14,12 @@ export async function fetchData(endpoint: string) {
       }
     });
 
-    console.log('Token: ', token)
-
-    if (response.status !== 200) {
+    if (response.status !== 200 && response.status !== 401) {
       throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);
+    } else if (response.status === 401) {
+      throw new Error("User Unauthorized");
     }
+
     return await response.data;
   } catch (error: any) {
     console.error("API fetch error:", error);

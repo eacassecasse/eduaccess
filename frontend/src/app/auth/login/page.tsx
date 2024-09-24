@@ -21,73 +21,49 @@ const SignIn = () => {
     const handleLogin = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         setIsLoading(true);
+        setAuthError("");
+        setErrors([]);
+
+        console.log("Outside1 loading: ", isLoading)
 
         try {
-            const res = await axios.post('https://eduaccess.up.railway.app/api/v1/auth/', { email, password })
-            const { access, refresh, id } = res.data;
-
-            if (access && refresh && id) {
-                // nookies.set(null, 'access_token', access, {
-                //     maxAge: 30 * 24 * 60 * 60,
-                //     path: '/'
-                // })
-                nookies.set(null, 'refresh_token', refresh, {
-                    maxAge: 30 * 24 * 60 * 60,
-                    path: '/'
-                })
-                login(access, id)
-            }
-
-            router.push('/courses')
-        } catch (err: any) {
-            setAuthError(`Login Failed due to ${err.message}`);
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
-    const onSubmit = async (ev: any) => {
-        ev.preventDefault();
-
-        try {
-            setIsLoading(true)
-            setAuthError("")
-
             const mySchema = z.object({
                 email: z.coerce.string().email().min(5),
                 password: z.string().min(3),
             });
 
-            // validate form data
-            const response = mySchema.safeParse({
-                email: email,
-                password: password,
-            });
-
+            // Validate form data
+            const response = mySchema.safeParse({ email, password });
             if (!response.success) {
-                let errList: any[] = [];
-                const { errors: err } = response.error
-
-                for (var i = 0; i < err.length; i++) {
-                    errList.push({ for: err[i].path[0], message: err[i].message });
-                }
-
+                const errList = response.error.errors.map(err => ({ for: err.path[0], message: err.message }));
                 setErrors(errList);
-
-                throw err;
+                throw new Error("Validation failed");
             }
 
-            setErrors([]);
-        } catch (error: any) {
-            console.error(error);
+            const res = await axios.post('https://eduaccess.up.railway.app/api/v1/auth/', { email, password });
+            const { access, refresh, id } = res.data;
+
+            if (access && refresh && id) {
+                nookies.set(null, 'refresh_token', refresh, {
+                    maxAge: 30 * 24 * 60 * 60,
+                    path: '/',
+                });
+                console.log("Inside loading: ", isLoading)
+                login(access, id);
+                router.push('/courses');
+            }
+        } catch (err: any) {
+            setAuthError(`Login Failed due to ${err.message}`);
         } finally {
             setIsLoading(false);
         }
+        console.log("Outside2 loading: ", isLoading)
     };
+
 
     return (
         <div className="flex py-20">
-            <form className="w-96 flex flex-col flex-nowrap items-center justify-center px-8 pt-10 pb-14 shadow-lg rounded-md gap-10 m-auto border" method="post" onSubmit={handleLogin}>
+            <form className="w-96 flex flex-col flex-nowrap items-center justify-center px-8 pt-10 pb-14 shadow-lg rounded-md gap-10 m-auto border sm:border-0" method="post" onSubmit={handleLogin}>
                 <div className="flex flex-col gap-4">
                     <h1 className="font-bold text-3xl text-slate-800">Access the platform</h1>
                     <p className="font-normal text-base text-slate-600">Log in or register to start your journey and unlock your knowledge.</p>
@@ -100,7 +76,7 @@ const SignIn = () => {
       invalid:border-pink-500 invalid:text-pink-600
       focus:invalid:border-pink-500 focus:invalid:ring-pink-500" onChange={(ev) => setEmail(ev.target.value)} />
                         <div className="mt-1 text-xs text-red-500">
-                            {errors.find((error) => error.for === "email")}
+                            {errors.find((error) => error.for === "email")?.message}
                         </div>
                     </div>
                     <div>
@@ -111,7 +87,7 @@ const SignIn = () => {
       focus:invalid:border-pink-500 focus:invalid:ring-pink-500
     " onChange={(ev) => setPassword(ev.target.value)} />
                         <div className="mt-1 text-xs text-red-500">
-                            {errors.find((error) => error.for === "password")}
+                            {errors.find((error) => error.for === "password")?.message}
                         </div>
                     </div>
                     <button
@@ -134,9 +110,9 @@ const SignIn = () => {
                         ) : (
                             "Login"
                         )}</button>
-                        <p className="flex flex-row flex-nowrap gap-1 text-base font-normal text-slate-600">
-                            Don&apos;t have an account yet? <Link href="/auth/register" className="text-red-600">Sign Up</Link>
-                        </p>
+                    <p className="flex flex-row flex-nowrap gap-1 text-base font-normal text-slate-600">
+                        Don&apos;t have an account yet? <Link href="/auth/register" className="text-red-600">Sign Up</Link>
+                    </p>
                 </div>
             </form>
         </div>
