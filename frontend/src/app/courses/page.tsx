@@ -1,7 +1,7 @@
 
 "use client"
 import React, { useEffect, useState } from "react";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/app/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import Course, { CourseProps } from "@/app/components/course";
 import { ScrollArea } from "@/app/components/ui/scroll-area";
 import ProtectedPage from "@/app/components/protectedPage";
@@ -20,8 +20,8 @@ const CourseList = () => {
     const educators: string[] = []; // Get unique educators
 
     courses && courses.forEach((course: CourseProps) => {
-        if (!educators.includes(course.educator)) {
-            educators.push(course.educator)
+        if (!educators.includes(course.educator.name)) {
+            educators.push(course.educator.name)
         }
     })
     const durations = ['Short (< 3 hours)', 'Medium (3 - 10 hours)', 'Long (> 10 hours)']; // Duration options
@@ -30,7 +30,7 @@ const CourseList = () => {
     const [selectedDuration, setSelectedDuration] = useState("");
 
     const filteredCourses = courses && courses.filter(course => {
-        let educatorMatch = selectedEducator ? course.educator === selectedEducator : true;
+        let educatorMatch = selectedEducator ? course.educator.name === selectedEducator : true;
         let durationMatch = true;
 
         if (selectedDuration) {

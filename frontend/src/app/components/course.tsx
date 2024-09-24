@@ -8,7 +8,9 @@ export interface CourseProps {
     title: string;
     prev_img: string;
     description: string;
-    educator: string;  // Educator ID
+    educator: {
+        name: string;
+    }  // Educator ID
     students: {
       id: string;
       name: string;

@@ -56,7 +56,7 @@ const CourseDetail = () => {
 
   return (
     <div>
-      <OverviewSection title={course.title} educator={course.educator} prev_img={course.prev_img} attendants={course && course.students.map((student: UserProps) => (student.profile_image))} handler={handleStartLearning}/>
+      <OverviewSection title={course.title} educator={course.educator.name} prev_img={course.prev_img} attendants={course && course.students.map((student: UserProps) => (student.profile_image))} handler={handleStartLearning}/>
       <CourseInfoSection duration={courseInfo.duration} languages={courseInfo.languages} mode={courseInfo.mode} rating={courseInfo.rating} />
       <CourseDescriptionSection
         title={course.title}
