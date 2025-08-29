@@ -49,11 +49,10 @@ export default function Header() {
           </div>
 
           <div className="flex flex-1 items-center justify-between sm:justify-between">
-            <div className="grid flex-1 text-left text-3xl leading-tight">
-              <span className="truncate font-semibold mt-2">
-                Uhamba
-                <span className="text-emerald-500">.</span>
-              </span>
+            <div className="flex flex-shrink-0 items-center">
+              <h1 className="font-bold text-2xl text-slate-800">
+                Uhamba <span className="text-emerald-300">.</span>
+              </h1>
             </div>
 
             <div className="hidden sm:block flex-grow flex-row">
